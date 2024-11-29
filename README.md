@@ -1,3 +1,0 @@
-# garantex
-# garantex
-# garantex
