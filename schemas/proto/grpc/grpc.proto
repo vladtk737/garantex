@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package exchange;
+
+option go_package = "garantex/schemas/proto/grpc";
+
+service ExchangeService {
+  rpc GetTrades (google.protobuf.Empty) returns (GetTradesResponse);
+}
+
+service Health {
+  rpc Check (google.protobuf.Empty) returns (HealthCheckResponse);
+}
+
+message GetTradesResponse {
+  bool success = 1;
+  string error_message = 2;
+  repeated TradePriceData trade_price_data = 3;
+}
+
+message Trade {
+  int32 id = 1;
+  string price = 2;
+  string volume = 3;
+  string funds = 4;
+  string market = 5;
+  string created_at = 6;
+}
+
+message TradePriceData {
+  int32 id = 1;
+  string ask_price = 2;
+  string bid_price = 3;
+  string timestamp = 4;
+}
+
+message HealthCheckResponse {
+  enum Status {
+    SERVING = 0;
+    NOT_SERVING = 1;
+    UNKNOWN = 2;
+  }
+
+  Status status = 1;
+}
+
+import "google/protobuf/empty.proto";
